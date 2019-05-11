@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cdu.edu.hospital.dao.CommonDao">
+	<select id="titleQuery" parameterType="String" resultType="cdu.edu.hospital.entity.Common">
+	select 
+		b.parameter_values as "value",
+		b.parameter_name as "name"
+	from 
+		parameter a,
+  		paracode b
+	where 
+		a.name = #{name}
+	and 
+		a.code = b.code
+	order by b.parameter_values
+ 	</select>
+ 	<select id="parameterQuery" resultType="cdu.edu.hospital.entity.Parameter">
+ 		select 
+ 			parameter_id as "id",
+ 			code as "code",
+ 			name as "name"
+ 		from
+ 			parameter
+ 		where 1=1
+ 	</select>
+ 	<select id="parameterCodeQuery" parameterType="String" resultType="cdu.edu.hospital.entity.Parameter">
+ 		select 
+ 			code_id as "id",
+ 			parameter_values as "code",
+ 			parameter_name as "name"
+ 		from 
+ 			paracode
+ 		where 
+ 			code = #{id}
+ 	</select>
+ 	<insert id="parameterCodeInsert" parameterType="cdu.edu.hospital.entity.Parameter">
+ 		insert into 
+ 			paracode(code,parameter_values,parameter_name)
+ 		values
+ 			(#{code},#{value},#{name})
+ 	</insert>
+ 	<update id="parameterCodeUpdate" parameterType="cdu.edu.hospital.entity.Parameter">
+ 		update 
+ 			paracode
+ 		set
+ 			code=#{code},
+ 			parameter_values=#{value},
+ 			parameter_name=#{name}
+ 		where 
+ 			code_id = #{id}
+ 	</update>
+ 	<delete id="parameterCodeDelete" parameterType="Integer">
+ 		delete from 
+ 			paracode
+ 		where
+ 			code_id = #{id}
+ 	</delete>
+ 	<select id="wardTypeQuery" resultType="cdu.edu.hospital.entity.Parameter">
+ 		select 
+			type as "value",
+			name as "name"
+ 		from 
+			category
+ 	</select>
+ 	<select id="nationQuery" resultType="cdu.edu.hospital.entity.Parameter">
+ 			select 
+			nationNum as "value",
+			nationName "name"
+ 		from 
+			nation
+ 	</select>
+</mapper>

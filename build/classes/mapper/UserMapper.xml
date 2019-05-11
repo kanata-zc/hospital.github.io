@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cdu.edu.hospital.dao.UserDao">
+	<select id="findUser" parameterType="cdu.edu.hospital.entity.User"
+		resultType="cdu.edu.hospital.entity.User">
+		select
+			*
+		from
+			(
+			select
+				user_id as "id",
+				user_name as "name",
+				user_password as "password",
+				user_phone as "phone",
+				user_describe as "describe",
+				create_time as "createtime"
+			from
+				user
+			where user_describe=#{describe}) A
+		where
+			1=1
+		and
+			if(#{id} is null,0=0,A.id=#{id})
+	</select>
+	<insert id="saveUser" parameterType="cdu.edu.hospital.entity.User">
+		insert into
+			user(user_id,user_name,user_password,user_phone,user_describe,create_time)
+		values
+			(#{id},#{name},#{password},#{phone},#{describe},curdate())
+	</insert>
+	<select id="findUserById" parameterType="String"
+		resultType="cdu.edu.hospital.entity.User">
+		select
+			user_id as "id",
+			user_name as "name",
+			user_password as "password",
+			user_phone as "phone",
+			user_describe as "describe",
+			create_time as "createtime"
+		from
+			user
+		where 
+			1=1
+		and
+		    if(#{id} is null,0=0,user_id=#{id})
+	</select>
+	<select id="userQuery" parameterType="cdu.edu.hospital.entity.UserCode"
+	resultType="cdu.edu.hospital.entity.User">
+		select
+			user_id as "id",
+			user_name as "name",
+			user_password as "password",
+			user_phone as "phone",
+			user_describe as "describe",
+			create_time as "createtime"
+		from
+			user
+		where 
+			1 = 1
+		 and
+		  	if(#{id} is null,0=0,user_id=#{id})
+		 and
+		  	if(#{name} is null,0=0,user_name like CONCAT('%',#{name},'%'))
+		 and
+		 	if(#{describe} is null,0=0,user_describe=#{describe})
+		 and
+		 	if(#{startTime} is null,0=0,create_time &gt;= #{startTime})
+		 and  
+		 	if(#{endTime} is null,0=0,create_time  &lt;= #{endTime})
+		 order by user_id,create_time
+	</select>
+	<delete id="userDelete" parameterType="String">
+		delete from user where user_id = #{id}
+	</delete>
+	<update id="updateUser" parameterType="cdu.edu.hospital.entity.User">
+		update 
+			user
+		set 
+			user_password=#{password}
+		where
+			user_id = #{id}
+	</update>
+	<update id="updateUserMessage" parameterType="cdu.edu.hospital.entity.User">
+		update 
+			user
+		set
+			user_name = #{name},
+			user_phone = #{phone},
+			user_describe = #{describe}
+		where 
+			user_id = #{id}		
+	</update>
+	
+</mapper>

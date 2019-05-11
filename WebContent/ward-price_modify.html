@@ -1,0 +1,49 @@
+<meta charset="utf-8">
+<link rel="stylesheet" href="css/base.css" />
+<link rel="stylesheet" href="css/info-mgt.css" />
+<link rel="stylesheet" href="css/WdatePicker.css" />
+<link rel="stylesheet" href="css/info-reg.css" />
+<title>医院住院管理系统</title>
+</head>
+<body>
+	<div class="title">
+		<h2>病房价格调整</h2>
+	</div>
+	<div class="main">
+		<table>
+			<tr>
+				<td>
+					<div class="query-btn ue-clear"
+						style="float: right; margin-right: 40px; margin-bottom: 40px;">
+						<a href="javascript:void(0);" id="save" class="confirm">保存</a>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div class="table-box">
+			<form id="updatePriceForm">
+				<input style="display: none;" id="total" name="total" />
+				<table>
+					<thead>
+						<tr>
+							<th class="num">序号</th>
+							<th class="name">病房类型号</th>
+							<th class="process">类型名称</th>
+							<th class="node">调整前的价格(元/天)</th>
+							<th class="operate">调整后的价格(元/天)</th>
+							<th class="operate">上次调整时间</th>
+						</tr>
+					</thead>
+					<tbody id="show">
+					</tbody>
+				</table>
+			</form>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/core.js"></script>
+<script type="text/javascript" src="js/jquery.dialog.js"></script>
+<script type="text/javascript" src="js/wardModify.js"></script>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cdu.edu.hospital.dao.BedDao">
+	<select id="bedQuery" parameterType="cdu.edu.hospital.entity.Bed"
+		resultType="cdu.edu.hospital.entity.Bed">
+		select
+			bedId	 as "id",
+			ward 	 as "wardNo",
+			bedNo    as "bedNo",
+			state	 as "state"
+		from
+			bed
+		where
+			1=1
+		and
+			if(#{id} is null,0=0,bedId=#{id})
+		and
+			if(#{wardNo} is null,0=0,ward=#{wardNo})
+		and
+			if(#{state} is null,0=0,state=#{state})
+	</select>
+	<update id="bedUpdate"  parameterType="cdu.edu.hospital.entity.Bed">
+		update 
+			bed
+		set
+			state = #{state}
+		where 
+			bedNo = #{bedNo}
+	</update>
+	<select id="bedStateQuery" parameterType="cdu.edu.hospital.entity.Bed" resultType="java.lang.Integer">
+	select
+		 sum(A.state)
+	from 
+		bed A
+	where 
+		A.ward=#{wardNo}
+	</select>
+</mapper>
